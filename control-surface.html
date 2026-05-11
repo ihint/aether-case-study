@@ -743,7 +743,7 @@
         <p class="subtitle">Sanitized operating surface from a private AI-assisted research-to-operations platform. Values are rebased, but the artifact flow mirrors the real system.</p>
       </div>
       <div class="timestamp">
-        Snapshot: Mon 09:16 ET<br>
+        Snapshot: <span data-clock="snapshot">Current ET</span><br>
         Mode: Simulation / supervised review<br>
         Data freshness: 3s quotes, 1m bars complete
       </div>
@@ -761,9 +761,9 @@
             <tr><th>Stage</th><th>Time</th><th>Status</th></tr>
           </thead>
           <tbody>
-            <tr><td>Telemetry</td><td class="mono">09:12</td><td class="positive">Fresh</td></tr>
-            <tr><td>Replay</td><td class="mono">09:14</td><td class="positive">Refreshed</td></tr>
-            <tr><td>Scorecard</td><td class="mono">09:14</td><td class="watch-text">Watch</td></tr>
+            <tr><td>Telemetry</td><td class="mono" data-clock="time" data-clock-offset="-4">T-04m</td><td class="positive">Fresh</td></tr>
+            <tr><td>Replay</td><td class="mono" data-clock="time" data-clock-offset="-2">T-02m</td><td class="positive">Refreshed</td></tr>
+            <tr><td>Scorecard</td><td class="mono" data-clock="time" data-clock-offset="-2">T-02m</td><td class="watch-text">Watch</td></tr>
             <tr><td>Packet</td><td class="mono">Open</td><td>Review</td></tr>
             <tr><td>Human Gate</td><td class="mono">Pending</td><td class="negative">Locked</td></tr>
           </tbody>
@@ -1012,7 +1012,7 @@
         <span class="label">Audit Trail</span>
         <ul class="audit-list">
           <li class="audit">
-            <span class="time-pill impact-low">09:12</span>
+            <span class="time-pill impact-low" data-clock="time" data-clock-offset="-4">T-04m</span>
             <div>
               <div class="audit-title">Telemetry ingested</div>
               <div class="audit-meta">Fresh market data and event context attached to active candidate.</div>
@@ -1020,7 +1020,7 @@
             <span class="status-pill pass">Logged</span>
           </li>
           <li class="audit">
-            <span class="time-pill impact-med">09:14</span>
+            <span class="time-pill impact-med" data-clock="time" data-clock-offset="-2">T-02m</span>
             <div>
               <div class="audit-title">Replay and scorecard refreshed</div>
               <div class="audit-meta">Candidate remains positive but concentration review stays open.</div>
@@ -1028,7 +1028,7 @@
             <span class="status-pill watch">Watch</span>
           </li>
           <li class="audit">
-            <span class="time-pill impact-high">09:16</span>
+            <span class="time-pill impact-high" data-clock="time">Now</span>
             <div>
               <div class="audit-title">Live-action gate held</div>
               <div class="audit-meta">Event window detected. Review continues; live-capable action requires human approval.</div>
@@ -1041,5 +1041,42 @@
 
     <p class="footer-note">Sanitized operating-surface sample for application discussion. It demonstrates how AETHER presents state, risk, evidence gates, and human-control boundaries without exposing private repositories, strategy parameters, data paths, or operational credentials.</p>
   </main>
+  <script>
+    (() => {
+      const zone = "America/New_York";
+      const timeFormat = new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+        timeZone: zone
+      });
+      const snapshotFormat = new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+        timeZone: zone
+      });
+
+      function shiftedNow(offsetMinutes) {
+        return new Date(Date.now() + offsetMinutes * 60 * 1000);
+      }
+
+      function renderClocks() {
+        document.querySelectorAll("[data-clock]").forEach((element) => {
+          const offset = Number(element.dataset.clockOffset || 0);
+          const value = shiftedNow(offset);
+          if (element.dataset.clock === "snapshot") {
+            element.textContent = `${snapshotFormat.format(value).replace(",", "")} ET`;
+            return;
+          }
+          element.textContent = timeFormat.format(value);
+        });
+      }
+
+      renderClocks();
+      window.setInterval(renderClocks, 30000);
+    })();
+  </script>
 </body>
 </html>
