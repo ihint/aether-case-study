@@ -1,6 +1,6 @@
 # Sanitized Promotion Packet Sample
 
-This is a fictionalized artifact based on the structure of the private AETHER workflow. Candidate names, data sources, thresholds, paths, market identifiers, and operational details have been changed or generalized. The purpose is to show how the system thinks, not to disclose private strategy logic.
+This is a sanitized sample based on the structure of the private AETHER workflow. Candidate names, data sources, thresholds, paths, market identifiers, and operational details have been changed or generalized. The purpose is to show how the system thinks, not to disclose private strategy logic.
 
 ## Packet Summary
 
@@ -104,4 +104,3 @@ This packet is a control surface for an AI-assisted research system.
 The important behavior is not that the system found a promising idea. The important behavior is that the system refused to promote a promising idea when the evidence was not strong enough.
 
 That is the product lesson behind AETHER: useful AI workflows need a way to say "not yet" with reasons a human can inspect.
-

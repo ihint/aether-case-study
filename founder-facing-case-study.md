@@ -2,7 +2,7 @@
 
 I am not applying because I need permission to be useful, and I am not trying to escape my own work.
 
-I am applying because I want to work around people playing a bigger product game than I can play alone right now. I have proven I can build in ambiguity, search hard for leverage, and use AI as an accelerator without letting it replace judgment. What I want next is a real customer problem, faster feedback from elite builders, and a team where my intensity compounds.
+I am applying because this role matches work I have already been doing: turning messy, high-stakes workflows into evaluated systems that earn trust. AETHER is the proof point. It forced me to build in ambiguity, search hard for leverage, and use AI as an accelerator without letting it replace judgment.
 
 ## What I Built
 
@@ -22,7 +22,7 @@ The origin was financial-market research, but the engineering lesson is broader:
 
 Representative artifacts:
 
-- [AETHER control surface mockup](./control-surface.html)
+- [AETHER control surface](./control-surface.html)
 - [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
 
 ## Why It Matters
@@ -31,7 +31,7 @@ The hard part was not generating ideas. Ideas are cheap.
 
 The hard part was building a system that could answer: what data do we actually have, what is missing, can this be replayed, does it survive costs and holdout checks, is the system allowed to act, and can a human understand why a candidate moved forward or got blocked?
 
-That is the part of AI engineering I care about: turning uncertain model-assisted work into useful, reviewable, operationally safe decisions.
+That is the part of AI engineering I have been building toward: turning uncertain model-assisted work into useful, reviewable, operationally safe decisions.
 
 ## What I Bring
 
@@ -41,4 +41,4 @@ I use AI heavily, but I do not treat model output as authority. In AETHER, AI-as
 
 The repositories are private because they contain operational details and domain-specific logic, but I can walk through the architecture, safety model, testing strategy, and sanitized artifacts.
 
-> I built a system for proving which AI-assisted ideas deserve to move forward. I want to bring that same intensity to a bigger product arena.
+> I built a system for proving which AI-assisted ideas deserve to move forward. That is the intensity I bring to product work.

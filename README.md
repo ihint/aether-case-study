@@ -24,7 +24,7 @@ The origin was financial-market research, but the engineering lesson is broader:
 
 - [Founder-facing case study](./founder-facing-case-study.md)
 - [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
-- [Control surface mockup](./control-surface.html)
+- [AETHER control surface](./control-surface.html)
 
 ## Control Surface Preview
 
@@ -55,4 +55,3 @@ This repo intentionally excludes:
 - Private repository names.
 - Credentials, account details, or operational routing details.
 - Proprietary strategy parameters.
-
