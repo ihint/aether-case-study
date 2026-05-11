@@ -15,7 +15,7 @@ The origin was financial-market research, but the engineering lesson is broader:
 ## Proof
 
 - Built across two generations: legacy runtime/research system to cleaner AI-first research platform.
-- Current platform has 235 passing tests across ingestion, replay, persistence, schemas, risk, registry, relay behavior, and governance.
+- Built automated coverage around the risky parts: ingestion, replay, persistence, schemas, risk gates, registry behavior, and execution-boundary logic.
 - Designed explicit states: research-only, paper/shadow, recommended, and armed only by human approval.
 - Built local-first workflows for messy data, incomplete coverage, scorecards, runbooks, and audit artifacts.
 - Created review artifacts that can block a promising candidate when the evidence is thin.
