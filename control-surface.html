@@ -102,6 +102,13 @@
       margin-bottom: 16px;
     }
 
+    .framing-strip {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
     .tile,
     .panel {
       background: var(--surface);
@@ -164,6 +171,11 @@
       min-height: 220px;
     }
 
+    .explain-panel {
+      min-height: auto;
+      padding: 16px 18px;
+    }
+
     .panel h2 {
       margin: 0 0 14px;
       font-size: 17px;
@@ -176,6 +188,26 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.5;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pipeline span {
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--surface-3);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
     }
 
     .wide {
@@ -483,6 +515,7 @@
 
     @media (max-width: 1080px) {
       .status-strip,
+      .framing-strip,
       .main-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -509,9 +542,11 @@
       }
 
       .status-strip,
+      .framing-strip,
       .main-grid,
       .metrics,
-      .regime-grid {
+      .regime-grid,
+      .pipeline {
         grid-template-columns: 1fr;
       }
 
@@ -539,10 +574,27 @@
       </div>
       <div class="timestamp">
         Snapshot: Mon 09:16 ET<br>
-        Mode: Paper/shadow review<br>
+        Mode: Simulation / supervised review<br>
         Data freshness: 3s quotes, 1m bars complete
       </div>
     </header>
+
+    <section class="framing-strip" aria-label="Cold reviewer framing">
+      <article class="panel explain-panel">
+        <span class="label">What This Shows</span>
+        <p>This mockup shows the control surface I want around high-stakes AI workflows: current state, risk context, outside shocks, approval gates, and an audit trail. The key behavior is not that the system acts. The key behavior is that it can refuse to act when evidence or context is unsafe.</p>
+      </article>
+      <article class="panel explain-panel">
+        <span class="label">Decision Path</span>
+        <div class="pipeline" aria-label="Idea to live-capable action path">
+          <span>Idea</span>
+          <span>Evidence</span>
+          <span>Review</span>
+          <span>Simulation</span>
+          <span>Human Approval</span>
+        </div>
+      </article>
+    </section>
 
     <section class="status-strip" aria-label="Operating state summary">
       <article class="tile state-fail">
@@ -561,7 +613,7 @@
         <div class="note">Trend signal present, volatility elevated.</div>
       </article>
       <article class="tile state-ok">
-        <span class="label">Net P&amp;L</span>
+        <span class="label">Risk Progress</span>
         <div class="value positive">+0.53R</div>
         <div class="note">Inside risk envelope.</div>
       </article>
@@ -589,7 +641,7 @@
             <div class="v positive">+1.00R</div>
           </div>
           <div class="metric">
-            <div class="k">Thesis Line</div>
+            <div class="k">Invalidation Line</div>
             <div class="v negative">-1.40R</div>
           </div>
           <div class="metric">
@@ -681,7 +733,7 @@
       </article>
 
       <article class="panel">
-        <span class="label">Candidate Gates</span>
+        <span class="label">Approval Gates</span>
         <ul class="gate-list">
           <li class="gate">
             <span class="status-pill pass">Pass</span>
@@ -693,14 +745,14 @@
           <li class="gate">
             <span class="status-pill watch">Watch</span>
             <div>
-              <div class="gate-title">Paper gate</div>
+              <div class="gate-title">Simulation gate</div>
               <div class="gate-meta">Positive but thin after cost stress; concentration review open.</div>
             </div>
           </li>
           <li class="gate">
             <span class="status-pill blocked">No</span>
             <div>
-              <div class="gate-title">Arming gate</div>
+              <div class="gate-title">Live-action gate</div>
               <div class="gate-meta">Not reviewed. Human approval required before live-capable state.</div>
             </div>
           </li>
@@ -710,11 +762,11 @@
       <article class="panel full risk-panel">
         <span class="label">Risk Envelope</span>
         <h2>Positive does not mean allowed</h2>
-        <p>P&amp;L is inside bounds, but event risk and regime instability dominate the current decision.</p>
+        <p>Outcome is inside bounds, but event risk and regime instability dominate the current decision.</p>
         <div class="risk-scale">
           <div class="risk-step current">+0.53R<br>current</div>
           <div class="risk-step">+1.00R<br>complete</div>
-          <div class="risk-step">-1.40R<br>thesis line</div>
+          <div class="risk-step">-1.40R<br>invalidation</div>
           <div class="risk-step">-3.00R<br>hard limit</div>
         </div>
       </article>
