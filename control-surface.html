@@ -41,6 +41,32 @@
       padding: 28px 24px;
     }
 
+    .terminal-nav {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-left: 0;
+      border-right: 0;
+      margin-bottom: 18px;
+      color: #6f6f74;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .terminal-nav span {
+      padding: 10px 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .terminal-nav .active {
+      color: var(--amber);
+      border-bottom: 2px solid var(--amber);
+      background: rgba(240, 168, 79, 0.06);
+    }
+
     .topbar {
       display: flex;
       align-items: flex-start;
@@ -53,7 +79,7 @@
 
     h1 {
       margin: 0;
-      font-size: 38px;
+      font-size: 34px;
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -104,7 +130,7 @@
 
     .framing-strip {
       display: grid;
-      grid-template-columns: 1.35fr 1fr;
+      grid-template-columns: 1.15fr 1.05fr 0.8fr;
       gap: 16px;
       margin-bottom: 16px;
     }
@@ -169,6 +195,7 @@
     .panel {
       padding: 18px;
       min-height: 220px;
+      overflow: hidden;
     }
 
     .explain-panel {
@@ -208,6 +235,134 @@
       font-weight: 800;
       line-height: 1.2;
       text-align: center;
+    }
+
+    .artifact-table,
+    .terminal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      line-height: 1.25;
+      table-layout: fixed;
+    }
+
+    .artifact-table th,
+    .artifact-table td,
+    .terminal-table th,
+    .terminal-table td {
+      padding: 8px 6px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .artifact-table th,
+    .terminal-table th {
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .artifact-table tr:last-child td,
+    .terminal-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .mono {
+      font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scorecard-panel {
+      overflow-x: auto;
+    }
+
+    .scorecard-panel .terminal-table {
+      min-width: 760px;
+    }
+
+    .scorecard-panel .terminal-table th,
+    .scorecard-panel .terminal-table td {
+      overflow-wrap: normal;
+    }
+
+    .thesis-ladder {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .ladder-step {
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--surface-3);
+      min-height: 86px;
+    }
+
+    .ladder-step b {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .ladder-step strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+      color: var(--amber);
+    }
+
+    .ladder-step span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .sparkline {
+      width: 100%;
+      height: 96px;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-3);
+    }
+
+    .sparkline text {
+      fill: var(--muted);
+      font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 10px;
+    }
+
+    .sparkline .grid {
+      stroke: #303036;
+      stroke-width: 1;
+      stroke-dasharray: 2 5;
+    }
+
+    .sparkline .path {
+      fill: none;
+      stroke: var(--amber);
+      stroke-width: 2.5;
+    }
+
+    .sparkline .target {
+      stroke: var(--green);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 4;
+    }
+
+    .sparkline .marker {
+      fill: var(--amber);
+      stroke: var(--bg);
+      stroke-width: 2;
     }
 
     .wide {
@@ -297,6 +452,10 @@
 
     .negative {
       color: var(--red);
+    }
+
+    .watch-text {
+      color: var(--amber);
     }
 
     .neutral {
@@ -546,7 +705,8 @@
       .main-grid,
       .metrics,
       .regime-grid,
-      .pipeline {
+      .pipeline,
+      .thesis-ladder {
         grid-template-columns: 1fr;
       }
 
@@ -566,6 +726,16 @@
 </head>
 <body>
   <main class="shell">
+    <nav class="terminal-nav" aria-label="AETHER navigation">
+      <span class="active">Dashboard (US)</span>
+      <span>Regime Map</span>
+      <span>Thesis</span>
+      <span>Scorecard</span>
+      <span>Packet</span>
+      <span>Audit</span>
+      <span>Cross-Asset</span>
+    </nav>
+
     <header class="topbar">
       <div>
         <div class="brandline">A&amp;B / AI operations cockpit</div>
@@ -581,18 +751,35 @@
 
     <section class="framing-strip" aria-label="Cold reviewer framing">
       <article class="panel explain-panel">
-        <span class="label">What This Shows</span>
-        <p>This is the review layer built around AETHER's actual workflow: telemetry freshness, market/event context, candidate state, replay evidence, approval gates, and an audit trail. The important behavior is not that the system acts. The important behavior is that it can refuse to act when evidence or context is unsafe.</p>
+        <span class="label">Operating Brief</span>
+        <p>AETHER's review layer is live: telemetry freshness, market/event context, candidate state, replay evidence, approval gates, and audit trail are visible in one surface. The system can continue research work while blocking live action when evidence or context is unsafe.</p>
       </article>
       <article class="panel explain-panel">
         <span class="label">Artifact Flow</span>
-        <div class="pipeline" aria-label="Telemetry to human approval artifact flow">
-          <span>Telemetry</span>
-          <span>Replay</span>
-          <span>Scorecard</span>
-          <span>Packet</span>
-          <span>Human Gate</span>
-        </div>
+        <table class="artifact-table" aria-label="Telemetry to human approval artifact flow">
+          <thead>
+            <tr><th>Stage</th><th>Time</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Telemetry</td><td class="mono">09:12</td><td class="positive">Fresh</td></tr>
+            <tr><td>Replay</td><td class="mono">09:14</td><td class="positive">Refreshed</td></tr>
+            <tr><td>Scorecard</td><td class="mono">09:14</td><td class="watch-text">Watch</td></tr>
+            <tr><td>Packet</td><td class="mono">Open</td><td>Review</td></tr>
+            <tr><td>Human Gate</td><td class="mono">Pending</td><td class="negative">Locked</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="panel explain-panel">
+        <span class="label">ES Thesis</span>
+        <table class="terminal-table" aria-label="ES thesis levels">
+          <tbody>
+            <tr><th>Bias</th><td>Upside continuation</td></tr>
+            <tr><th>T1</th><td class="mono positive">7451</td></tr>
+            <tr><th>Confirm</th><td>2 daily closes &gt; T1</td></tr>
+            <tr><th>T2</th><td class="mono positive">8000</td></tr>
+            <tr><th>State</th><td>Review active / live gated</td></tr>
+          </tbody>
+        </table>
       </article>
     </section>
 
@@ -657,12 +844,34 @@
 
       <article class="panel">
         <span class="label">Current Thesis</span>
-        <h2>Context continuation watch</h2>
-        <p>Directional follow-through remains plausible only if post-event acceptance confirms and volatility returns to a stable band.</p>
-        <div class="thesis-box">
-          <b>Invalidation</b>
-          <p>Break in context alignment, stale data, event shock, or risk envelope breach.</p>
+        <h2>ES upside continuation</h2>
+        <p>Primary objective is 7451. Two daily closes above 7451 promote the expansion thesis toward 8000, while live action remains gated by event risk and human approval.</p>
+        <div class="thesis-ladder">
+          <div class="ladder-step">
+            <b>Current</b>
+            <strong>Review</strong>
+            <span>Telemetry and replay active.</span>
+          </div>
+          <div class="ladder-step">
+            <b>T1 / Confirm</b>
+            <strong>7451</strong>
+            <span>Two daily closes above.</span>
+          </div>
+          <div class="ladder-step">
+            <b>Expansion</b>
+            <strong>8000</strong>
+            <span>Unlocked after confirmation.</span>
+          </div>
         </div>
+        <svg class="sparkline" viewBox="0 0 420 96" role="img" aria-label="Sanitized ES thesis sparkline">
+          <line class="grid" x1="20" y1="68" x2="400" y2="68"></line>
+          <line class="grid" x1="20" y1="42" x2="400" y2="42"></line>
+          <line class="target" x1="20" y1="38" x2="400" y2="38"></line>
+          <text x="24" y="34">T1 7451</text>
+          <text x="330" y="20">T2 8000</text>
+          <path class="path" d="M24 74 L76 70 L122 64 L168 67 L212 58 L260 50 L306 45 L356 39 L398 34"></path>
+          <circle class="marker" cx="356" cy="39" r="5"></circle>
+        </svg>
       </article>
 
       <article class="panel">
@@ -769,6 +978,34 @@
           <div class="risk-step">-1.40R<br>invalidation</div>
           <div class="risk-step">-3.00R<br>hard limit</div>
         </div>
+      </article>
+
+      <article class="panel full scorecard-panel">
+        <span class="label">Scorecard Strip</span>
+        <table class="terminal-table" aria-label="AETHER candidate scorecard strip">
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th>Telemetry</th>
+              <th>Replay</th>
+              <th>Cost Stress</th>
+              <th>Concentration</th>
+              <th>Packet</th>
+              <th>Live Gate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ES_UPSIDE_CONTINUATION</td>
+              <td class="positive">Fresh</td>
+              <td class="positive">+0.53R</td>
+              <td class="positive">Pass</td>
+              <td class="watch-text">Watch</td>
+              <td>Open</td>
+              <td class="negative">Locked</td>
+            </tr>
+          </tbody>
+        </table>
       </article>
 
       <article class="panel full">
