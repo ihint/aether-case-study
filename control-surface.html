@@ -228,22 +228,22 @@
       justify-content: space-between;
       gap: 12px;
       padding: 14px;
-      background: #2b1818;
-      border: 1px solid rgba(255, 98, 89, 0.42);
+      background: rgba(70, 211, 154, 0.10);
+      border: 1px solid rgba(70, 211, 154, 0.36);
       border-radius: 8px;
       margin-bottom: 14px;
     }
 
     .decision strong {
       display: block;
-      color: var(--red);
+      color: var(--green);
       font-size: 18px;
       line-height: 1.2;
     }
 
     .decision span {
       display: block;
-      color: #f0c3bd;
+      color: #c4ebd9;
       font-size: 13px;
       line-height: 1.35;
       margin-top: 4px;
@@ -257,7 +257,7 @@
       display: grid;
       place-items: center;
       color: #fff;
-      background: var(--red);
+      background: var(--amber);
       font-weight: 900;
       font-size: 20px;
     }
@@ -597,15 +597,15 @@
     </section>
 
     <section class="status-strip" aria-label="Operating state summary">
-      <article class="tile state-fail">
+      <article class="tile state-ok">
         <span class="label">System State</span>
-        <div class="value negative">Fail-Closed</div>
-        <div class="note">New entries blocked: high-impact event window plus unstable volatility.</div>
+        <div class="value positive">Review Active</div>
+        <div class="note">Telemetry, replay, and scorecard are flowing; live action remains gated.</div>
       </article>
       <article class="tile state-ok">
-        <span class="label">Active Trades</span>
-        <div class="value">Flat</div>
-        <div class="note">0 open. Exposure cap unused.</div>
+        <span class="label">Active Review</span>
+        <div class="value">1 Candidate</div>
+        <div class="note">Simulation packet open. Human gate pending.</div>
       </article>
       <article class="tile state-warn">
         <span class="label">Market Regime</span>
@@ -629,12 +629,12 @@
         <span class="label">Decision Gate</span>
         <div class="decision">
           <div>
-            <strong>New Entries Blocked</strong>
-            <span>Current thesis may remain under observation, but the system cannot initiate new exposure until the event window clears and regime stability returns.</span>
+            <strong>Simulation Accepted, Live Action Locked</strong>
+            <span>The candidate can continue through supervised replay and packet review. Live-capable action remains blocked until event risk clears and human approval is recorded.</span>
           </div>
           <div class="lock" aria-label="Locked">!</div>
         </div>
-        <p>This is the primary visual proof: the system can refuse action when context quality degrades.</p>
+        <p>The system is doing real work while keeping the operational boundary intact.</p>
         <div class="metrics">
           <div class="metric">
             <div class="k">Day Target</div>
@@ -652,7 +652,7 @@
         <div class="progress" aria-label="Progress toward day target">
           <span style="--value: 53%"></span>
         </div>
-        <p>Progress to day target: 53%. New-entry lock overrides positive P&amp;L.</p>
+        <p>Progress to day target: 53%. Supervised review continues; live-action lock overrides positive outcome.</p>
       </article>
 
       <article class="panel">
@@ -777,24 +777,24 @@
           <li class="audit">
             <span class="time-pill impact-low">09:12</span>
             <div>
-              <div class="audit-title">Candidate context refreshed</div>
-              <div class="audit-meta">Data fresh; partial context gap remains open.</div>
+              <div class="audit-title">Telemetry ingested</div>
+              <div class="audit-meta">Fresh market data and event context attached to active candidate.</div>
             </div>
             <span class="status-pill pass">Logged</span>
           </li>
           <li class="audit">
             <span class="time-pill impact-med">09:14</span>
             <div>
-              <div class="audit-title">Volatility moved to elevated regime</div>
-              <div class="audit-meta">System marked thesis as observation-only.</div>
+              <div class="audit-title">Replay and scorecard refreshed</div>
+              <div class="audit-meta">Candidate remains positive but concentration review stays open.</div>
             </div>
             <span class="status-pill watch">Watch</span>
           </li>
           <li class="audit">
             <span class="time-pill impact-high">09:16</span>
             <div>
-              <div class="audit-title">High-impact event window detected</div>
-              <div class="audit-meta">New-entry path locked. Manual override would require explicit approval.</div>
+              <div class="audit-title">Live-action gate held</div>
+              <div class="audit-meta">Event window detected. Review continues; live-capable action requires human approval.</div>
             </div>
             <span class="status-pill blocked">Blocked</span>
           </li>
