@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AETHER Control Surface Mockup</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --surface-2: #eef2f6;
+      --ink: #17202a;
+      --muted: #5b6673;
+      --line: #d8dee7;
+      --blue: #2d6cdf;
+      --green: #16845b;
+      --amber: #b86b00;
+      --red: #c93636;
+      --violet: #6656c5;
+      --shadow: 0 10px 30px rgba(22, 32, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      max-width: 780px;
+    }
+
+    .timestamp {
+      min-width: 220px;
+      text-align: right;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) repeat(4, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tile,
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .tile {
+      padding: 14px 16px;
+      min-height: 92px;
+    }
+
+    .tile .label,
+    .panel .label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 8px;
+    }
+
+    .tile .value {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .tile .note {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .state-fail {
+      border-left: 6px solid var(--red);
+    }
+
+    .state-warn {
+      border-left: 6px solid var(--amber);
+    }
+
+    .state-ok {
+      border-left: 6px solid var(--green);
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+      min-height: 220px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .decision {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      background: #fff5f5;
+      border: 1px solid #f0c2c2;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .decision strong {
+      display: block;
+      color: var(--red);
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .decision span {
+      display: block;
+      color: #784141;
+      font-size: 13px;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
+
+    .lock {
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--red);
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 78px;
+      background: #fbfcfe;
+    }
+
+    .metric .k {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .metric .v {
+      margin-top: 6px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .positive {
+      color: var(--green);
+    }
+
+    .negative {
+      color: var(--red);
+    }
+
+    .neutral {
+      color: var(--ink);
+    }
+
+    .progress {
+      height: 10px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 8px;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: var(--value);
+      background: var(--blue);
+    }
+
+    .risk-scale {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .risk-step {
+      border-top: 4px solid var(--line);
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .risk-step.current {
+      border-color: var(--green);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .event-list,
+    .audit-list,
+    .gate-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .event,
+    .audit,
+    .gate {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .event:last-child,
+    .audit:last-child,
+    .gate:last-child {
+      border-bottom: 0;
+    }
+
+    .time-pill,
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
+      border: 1px solid transparent;
+    }
+
+    .impact-high {
+      background: #fff1f1;
+      color: var(--red);
+      border-color: #f0c2c2;
+    }
+
+    .impact-med {
+      background: #fff7e8;
+      color: var(--amber);
+      border-color: #e7c27f;
+    }
+
+    .impact-low {
+      background: #eef6ff;
+      color: var(--blue);
+      border-color: #bed6ff;
+    }
+
+    .pass {
+      background: #eaf7f1;
+      color: var(--green);
+      border-color: #b9dfcd;
+    }
+
+    .blocked {
+      background: #fff1f1;
+      color: var(--red);
+      border-color: #f0c2c2;
+    }
+
+    .watch {
+      background: #fff7e8;
+      color: var(--amber);
+      border-color: #e7c27f;
+    }
+
+    .event-title,
+    .gate-title,
+    .audit-title {
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.2;
+    }
+
+    .event-meta,
+    .gate-meta,
+    .audit-meta {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .regime-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .regime-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .regime-item b {
+      display: block;
+      font-size: 15px;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .regime-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .thesis-box {
+      border-left: 5px solid var(--violet);
+      background: #f6f4ff;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .thesis-box b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .thesis-box p {
+      color: #3d3867;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.red { background: var(--red); }
+    .dot.amber { background: var(--amber); }
+    .dot.green { background: var(--green); }
+    .dot.blue { background: var(--blue); }
+
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1080px) {
+      .status-strip,
+      .main-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .status-strip .tile:first-child,
+      .wide,
+      .full {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        padding: 16px;
+      }
+
+      .topbar {
+        display: block;
+      }
+
+      .timestamp {
+        text-align: left;
+        margin-top: 12px;
+      }
+
+      .status-strip,
+      .main-grid,
+      .metrics,
+      .regime-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event,
+      .audit,
+      .gate {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .time-pill,
+      .status-pill {
+        justify-self: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <h1>AETHER Control Surface</h1>
+        <p class="subtitle">Representative operating snapshot for a private AI-assisted research-to-operations platform. Values are sanitized and fictionalized.</p>
+      </div>
+      <div class="timestamp">
+        Snapshot: Mon 09:16 ET<br>
+        Mode: Paper/shadow review<br>
+        Data freshness: 3s quotes, 1m bars complete
+      </div>
+    </header>
+
+    <section class="status-strip" aria-label="Operating state summary">
+      <article class="tile state-fail">
+        <span class="label">System State</span>
+        <div class="value negative">Fail-Closed</div>
+        <div class="note">New entries blocked: high-impact event window plus unstable volatility.</div>
+      </article>
+      <article class="tile state-ok">
+        <span class="label">Active Trades</span>
+        <div class="value">Flat</div>
+        <div class="note">0 open. Exposure cap unused.</div>
+      </article>
+      <article class="tile state-warn">
+        <span class="label">Market Regime</span>
+        <div class="value">Mixed</div>
+        <div class="note">Trend signal present, volatility elevated.</div>
+      </article>
+      <article class="tile state-ok">
+        <span class="label">Net P&amp;L</span>
+        <div class="value positive">+0.53R</div>
+        <div class="note">Inside risk envelope.</div>
+      </article>
+      <article class="tile state-warn">
+        <span class="label">Next Impact</span>
+        <div class="value">14 min</div>
+        <div class="note">Inflation print. Entries locked.</div>
+      </article>
+    </section>
+
+    <section class="main-grid">
+      <article class="panel wide">
+        <span class="label">Decision Gate</span>
+        <div class="decision">
+          <div>
+            <strong>New Entries Blocked</strong>
+            <span>Current thesis may remain under observation, but the system cannot initiate new exposure until the event window clears and regime stability returns.</span>
+          </div>
+          <div class="lock" aria-label="Locked">!</div>
+        </div>
+        <p>This is the primary visual proof: the system can refuse action when context quality degrades.</p>
+        <div class="metrics">
+          <div class="metric">
+            <div class="k">Day Target</div>
+            <div class="v positive">+1.00R</div>
+          </div>
+          <div class="metric">
+            <div class="k">Thesis Line</div>
+            <div class="v negative">-1.40R</div>
+          </div>
+          <div class="metric">
+            <div class="k">Loss Limit</div>
+            <div class="v negative">-3.00R</div>
+          </div>
+        </div>
+        <div class="progress" aria-label="Progress toward day target">
+          <span style="--value: 53%"></span>
+        </div>
+        <p>Progress to day target: 53%. New-entry lock overrides positive P&amp;L.</p>
+      </article>
+
+      <article class="panel">
+        <span class="label">Current Thesis</span>
+        <h2>Context continuation watch</h2>
+        <p>Directional follow-through remains plausible only if post-event acceptance confirms and volatility returns to a stable band.</p>
+        <div class="thesis-box">
+          <b>Invalidation</b>
+          <p>Break in context alignment, stale data, event shock, or risk envelope breach.</p>
+        </div>
+      </article>
+
+      <article class="panel">
+        <span class="label">Upcoming Impact Events</span>
+        <ul class="event-list">
+          <li class="event">
+            <span class="time-pill impact-high">14m</span>
+            <div>
+              <div class="event-title">Inflation release</div>
+              <div class="event-meta">High impact. Futures-sensitive. Auto-lock active.</div>
+            </div>
+            <span class="status-pill blocked">Block</span>
+          </li>
+          <li class="event">
+            <span class="time-pill impact-med">52m</span>
+            <div>
+              <div class="event-title">Central bank speaker</div>
+              <div class="event-meta">Medium impact. Watch volatility expansion.</div>
+            </div>
+            <span class="status-pill watch">Watch</span>
+          </li>
+          <li class="event">
+            <span class="time-pill impact-med">2:00</span>
+            <div>
+              <div class="event-title">Treasury auction</div>
+              <div class="event-meta">Rate-sensitive. Liquidity check required.</div>
+            </div>
+            <span class="status-pill watch">Watch</span>
+          </li>
+          <li class="event">
+            <span class="time-pill impact-low">EOD</span>
+            <div>
+              <div class="event-title">Settlement window</div>
+              <div class="event-meta">No new action. Audit closeout only.</div>
+            </div>
+            <span class="status-pill pass">Log</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <span class="label">Regime And Data</span>
+        <h2>Usable context, unstable action window</h2>
+        <div class="regime-grid">
+          <div class="regime-item">
+            <b>Volatility</b>
+            <span>Elevated, widening range</span>
+          </div>
+          <div class="regime-item">
+            <b>Structure</b>
+            <span>Trend attempt, unconfirmed</span>
+          </div>
+          <div class="regime-item">
+            <b>Liquidity</b>
+            <span>Thin before release</span>
+          </div>
+          <div class="regime-item">
+            <b>Data Quality</b>
+            <span>Fresh, partial context gap</span>
+          </div>
+        </div>
+        <div class="legend">
+          <span><i class="dot red"></i> Block</span>
+          <span><i class="dot amber"></i> Watch</span>
+          <span><i class="dot green"></i> Pass</span>
+          <span><i class="dot blue"></i> Informational</span>
+        </div>
+      </article>
+
+      <article class="panel">
+        <span class="label">Candidate Gates</span>
+        <ul class="gate-list">
+          <li class="gate">
+            <span class="status-pill pass">Pass</span>
+            <div>
+              <div class="gate-title">Research intake</div>
+              <div class="gate-meta">Hypothesis translated into replayable candidate.</div>
+            </div>
+          </li>
+          <li class="gate">
+            <span class="status-pill watch">Watch</span>
+            <div>
+              <div class="gate-title">Paper gate</div>
+              <div class="gate-meta">Positive but thin after cost stress; concentration review open.</div>
+            </div>
+          </li>
+          <li class="gate">
+            <span class="status-pill blocked">No</span>
+            <div>
+              <div class="gate-title">Arming gate</div>
+              <div class="gate-meta">Not reviewed. Human approval required before live-capable state.</div>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <span class="label">Risk Envelope</span>
+        <h2>Positive does not mean allowed</h2>
+        <p>P&amp;L is inside bounds, but event risk and regime instability dominate the current decision.</p>
+        <div class="risk-scale">
+          <div class="risk-step current">+0.53R<br>current</div>
+          <div class="risk-step">+1.00R<br>complete</div>
+          <div class="risk-step">-1.40R<br>thesis line</div>
+          <div class="risk-step">-3.00R<br>hard limit</div>
+        </div>
+      </article>
+
+      <article class="panel full">
+        <span class="label">Audit Trail</span>
+        <ul class="audit-list">
+          <li class="audit">
+            <span class="time-pill impact-low">09:12</span>
+            <div>
+              <div class="audit-title">Candidate context refreshed</div>
+              <div class="audit-meta">Data fresh; partial context gap remains open.</div>
+            </div>
+            <span class="status-pill pass">Logged</span>
+          </li>
+          <li class="audit">
+            <span class="time-pill impact-med">09:14</span>
+            <div>
+              <div class="audit-title">Volatility moved to elevated regime</div>
+              <div class="audit-meta">System marked thesis as observation-only.</div>
+            </div>
+            <span class="status-pill watch">Watch</span>
+          </li>
+          <li class="audit">
+            <span class="time-pill impact-high">09:16</span>
+            <div>
+              <div class="audit-title">High-impact event window detected</div>
+              <div class="audit-meta">New-entry path locked. Manual override would require explicit approval.</div>
+            </div>
+            <span class="status-pill blocked">Blocked</span>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <p class="footer-note">Sanitized mockup for application discussion. It demonstrates how AETHER presents state, risk, evidence gates, and human-control boundaries without exposing private repositories, strategy parameters, data paths, or operational credentials.</p>
+  </main>
+</body>
+</html>

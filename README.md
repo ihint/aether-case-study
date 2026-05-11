@@ -1,0 +1,58 @@
+# AETHER Case Study
+
+This repository contains sanitized artifacts from **AETHER**, a private AI-assisted research-to-operations platform I built for a high-stakes decisioning domain.
+
+The private repositories are not public because they contain operational details, data paths, and domain-specific strategy logic. This repo shows the transferable engineering work: evaluation loops, human-in-the-loop gates, auditability, and a control surface for deciding when a system should not act.
+
+## The Short Version
+
+AETHER turns ambiguous hypotheses and noisy local data into reproducible workflows, replay artifacts, scorecards, candidate registries, and human-reviewable promotion packets.
+
+The origin was financial-market research, but the engineering lesson is broader:
+
+> Useful AI is not just about generating ideas. It is about proving which ideas deserve to move forward.
+
+## What This Shows
+
+- Research outputs are separated from operational actions.
+- Candidate states are explicit: research-only, paper/shadow, recommended, and armed only by human approval.
+- AI-assisted discovery is bounded by schemas, replay, scorecards, promotion packets, and human review.
+- The system can block a promising candidate when evidence is thin.
+- The control surface emphasizes state, risk, event context, gates, and audit trail instead of a simple performance scoreboard.
+
+## Artifacts
+
+- [Founder-facing case study](./founder-facing-case-study.md)
+- [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
+- [Control surface mockup](./control-surface.html)
+
+## Control Surface Preview
+
+![AETHER control surface](./assets/aether_control_surface_desktop.png)
+
+## Why I Built It This Way
+
+The hard part was not generating ideas. Ideas are cheap.
+
+The hard part was building a system that could answer:
+
+- What data do we actually have?
+- What is missing?
+- Can this be replayed from artifacts?
+- Does it survive costs, stress checks, and holdout rules?
+- Is the system allowed to act, or only allowed to recommend?
+- Can a human understand why a candidate moved forward or got blocked?
+
+That is the part of AI engineering I care about: turning uncertain model-assisted work into useful, reviewable, operationally safe decisions.
+
+## Privacy Boundary
+
+This repo intentionally excludes:
+
+- Source strategy code.
+- Private data files.
+- Local paths.
+- Private repository names.
+- Credentials, account details, or operational routing details.
+- Proprietary strategy parameters.
+
