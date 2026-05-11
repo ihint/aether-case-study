@@ -6,19 +6,20 @@
   <title>AETHER Control Surface Mockup</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f5f7fa;
-      --surface: #ffffff;
-      --surface-2: #eef2f6;
-      --ink: #17202a;
-      --muted: #5b6673;
-      --line: #d8dee7;
-      --blue: #2d6cdf;
-      --green: #16845b;
-      --amber: #b86b00;
-      --red: #c93636;
-      --violet: #6656c5;
-      --shadow: 0 10px 30px rgba(22, 32, 42, 0.08);
+      color-scheme: dark;
+      --bg: #111113;
+      --surface: #1d1d1f;
+      --surface-2: #262629;
+      --surface-3: #151517;
+      --ink: #f5f5f7;
+      --muted: #a1a1a6;
+      --line: #333338;
+      --blue: #7aa7ff;
+      --green: #46d39a;
+      --amber: #f0a84f;
+      --red: #ff6259;
+      --coral: #e07a5f;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
     }
 
     * {
@@ -37,7 +38,7 @@
     .shell {
       max-width: 1360px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 28px 24px;
     }
 
     .topbar {
@@ -45,14 +46,36 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
     }
 
     h1 {
       margin: 0;
-      font-size: 28px;
+      font-size: 38px;
       line-height: 1.1;
       letter-spacing: 0;
+    }
+
+    .brandline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .brandline::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.14);
     }
 
     .subtitle {
@@ -69,6 +92,7 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.5;
+      padding-top: 4px;
     }
 
     .status-strip {
@@ -87,8 +111,8 @@
     }
 
     .tile {
-      padding: 14px 16px;
-      min-height: 92px;
+      padding: 16px;
+      min-height: 104px;
     }
 
     .tile .label,
@@ -103,7 +127,7 @@
     }
 
     .tile .value {
-      font-size: 22px;
+      font-size: 25px;
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: 0;
@@ -117,15 +141,15 @@
     }
 
     .state-fail {
-      border-left: 6px solid var(--red);
+      border-left: 5px solid var(--red);
     }
 
     .state-warn {
-      border-left: 6px solid var(--amber);
+      border-left: 5px solid var(--amber);
     }
 
     .state-ok {
-      border-left: 6px solid var(--green);
+      border-left: 5px solid var(--green);
     }
 
     .main-grid {
@@ -162,14 +186,18 @@
       grid-column: 1 / -1;
     }
 
+    .risk-panel {
+      min-height: 180px;
+    }
+
     .decision {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 14px;
-      background: #fff5f5;
-      border: 1px solid #f0c2c2;
+      background: #2b1818;
+      border: 1px solid rgba(255, 98, 89, 0.42);
       border-radius: 8px;
       margin-bottom: 14px;
     }
@@ -183,7 +211,7 @@
 
     .decision span {
       display: block;
-      color: #784141;
+      color: #f0c3bd;
       font-size: 13px;
       line-height: 1.35;
       margin-top: 4px;
@@ -214,7 +242,7 @@
       border-radius: 8px;
       padding: 12px;
       min-height: 78px;
-      background: #fbfcfe;
+      background: var(--surface-3);
     }
 
     .metric .k {
@@ -255,7 +283,7 @@
       display: block;
       height: 100%;
       width: var(--value);
-      background: var(--blue);
+      background: var(--coral);
     }
 
     .risk-scale {
@@ -321,39 +349,39 @@
     }
 
     .impact-high {
-      background: #fff1f1;
+      background: rgba(255, 98, 89, 0.12);
       color: var(--red);
-      border-color: #f0c2c2;
+      border-color: rgba(255, 98, 89, 0.42);
     }
 
     .impact-med {
-      background: #fff7e8;
+      background: rgba(240, 168, 79, 0.12);
       color: var(--amber);
-      border-color: #e7c27f;
+      border-color: rgba(240, 168, 79, 0.42);
     }
 
     .impact-low {
-      background: #eef6ff;
+      background: rgba(122, 167, 255, 0.12);
       color: var(--blue);
-      border-color: #bed6ff;
+      border-color: rgba(122, 167, 255, 0.42);
     }
 
     .pass {
-      background: #eaf7f1;
+      background: rgba(70, 211, 154, 0.12);
       color: var(--green);
-      border-color: #b9dfcd;
+      border-color: rgba(70, 211, 154, 0.42);
     }
 
     .blocked {
-      background: #fff1f1;
+      background: rgba(255, 98, 89, 0.12);
       color: var(--red);
-      border-color: #f0c2c2;
+      border-color: rgba(255, 98, 89, 0.42);
     }
 
     .watch {
-      background: #fff7e8;
+      background: rgba(240, 168, 79, 0.12);
       color: var(--amber);
-      border-color: #e7c27f;
+      border-color: rgba(240, 168, 79, 0.42);
     }
 
     .event-title,
@@ -384,7 +412,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 12px;
-      background: #fbfcfe;
+      background: var(--surface-3);
     }
 
     .regime-item b {
@@ -402,8 +430,8 @@
     }
 
     .thesis-box {
-      border-left: 5px solid var(--violet);
-      background: #f6f4ff;
+      border-left: 5px solid var(--coral);
+      background: rgba(224, 122, 95, 0.12);
       border-radius: 8px;
       padding: 14px;
       margin-top: 12px;
@@ -416,7 +444,7 @@
     }
 
     .thesis-box p {
-      color: #3d3867;
+      color: #f1c8bd;
     }
 
     .legend {
@@ -505,6 +533,7 @@
   <main class="shell">
     <header class="topbar">
       <div>
+        <div class="brandline">A&amp;B / AI operations cockpit</div>
         <h1>AETHER Control Surface</h1>
         <p class="subtitle">Representative operating snapshot for a private AI-assisted research-to-operations platform. Values are sanitized and fictionalized.</p>
       </div>
@@ -678,7 +707,7 @@
         </ul>
       </article>
 
-      <article class="panel">
+      <article class="panel full risk-panel">
         <span class="label">Risk Envelope</span>
         <h2>Positive does not mean allowed</h2>
         <p>P&amp;L is inside bounds, but event risk and regime instability dominate the current decision.</p>
