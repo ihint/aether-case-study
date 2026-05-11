@@ -22,8 +22,8 @@ The origin was financial-market research, but the engineering lesson is broader:
 
 Representative artifacts:
 
-- `docs/application/aether_control_surface_mockup.html`
-- `docs/application/sanitized_promotion_packet_sample.md`
+- [AETHER control surface mockup](./control-surface.html)
+- [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
 
 ## Why It Matters
 
