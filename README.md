@@ -1,55 +1,58 @@
-# AETHER
+# AETHER Case Study
 
-Sanitized operating artifacts from a private AI-assisted research-to-operations system.
+This repository contains sanitized artifacts from **AETHER**, a private AI-assisted research-to-operations platform I built for a high-stakes decisioning domain.
 
-This repo exists for one reason: to show the work without exposing the private implementation. The core repositories stay closed because they contain operational details, local data paths, and domain-specific strategy logic. What is public here is the transferable engineering: evaluation loops, replay artifacts, scorecards, promotion packets, audit trails, and human approval gates.
+The private repositories are not public because they contain operational details, data paths, and domain-specific strategy logic. This repo shows the transferable engineering work: evaluation loops, human-in-the-loop gates, auditability, and a control surface for deciding when a system should not act.
 
-[Live control surface](https://ihint.github.io/aether-case-study/control-surface.html)
+## The Short Version
+
+AETHER turns ambiguous hypotheses and noisy local market data into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and human-reviewable operator state.
+
+The origin was financial-market research, but the engineering lesson is broader:
+
+> Useful AI is not just about generating ideas. It is about proving which ideas deserve to move forward.
+
+## What This Shows
+
+- Research outputs are separated from operational actions.
+- Candidate states are explicit: research-only, review-only, paper-permission, and live approval only by human authority.
+- AI-assisted discovery is bounded by schemas, replay, scorecards, promotion packets, and human review.
+- The system can kill a promising-sounding candidate when cost-adjusted evidence fails.
+- The control surface emphasizes state, risk, market context, gates, next actions, and audit trail instead of a simple performance scoreboard.
+
+## Artifacts
+
+- [Founder-facing case study](./founder-facing-case-study.md)
+- [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
+- [AETHER control surface](./control-surface.html)
+
+## Control Surface Preview
 
 ![AETHER control surface](./assets/aether_control_surface_desktop.png)
 
-```text
-SYSTEM STATE    REVIEW ACTIVE
-LIVE ACTION     LOCKED
-FLOW            TELEMETRY -> REPLAY -> SCORECARD -> PACKET -> HUMAN GATE
-BOUNDARY        RESEARCH CAN CONTINUE; LIVE ACTION REQUIRES APPROVAL
-```
+## Why I Built It This Way
 
-## Start Here
+The hard part was not generating ideas. Ideas are cheap.
 
-| Artifact | What It Shows |
-| --- | --- |
-| [Control surface](./control-surface.html) | The operating cockpit: state, risk, thesis, event context, gates, and audit trail. |
-| [Founder-facing case study](./founder-facing-case-study.md) | The narrative version for a skeptical builder reviewing whether the work is real. |
-| [Promotion packet sample](./sanitized-promotion-packet.md) | How a candidate moves from idea to replayable, reviewable decision artifact. |
+The hard part was building a system that could answer:
 
-## Operating Model
+- What data do we actually have?
+- What is missing?
+- Can this be replayed from artifacts?
+- Does it survive costs, stress checks, and holdout rules?
+- Is the system allowed to act, or only allowed to recommend?
+- Can a human understand why a candidate moved forward or got blocked?
+- What should the next research agent do when no candidate is promotable?
 
-| Layer | Job | Boundary |
-| --- | --- | --- |
-| Hypothesis intake | Turn an ambiguous idea into a replayable candidate. | No operational action. |
-| Replay | Reconstruct behavior from artifacts, not vibes. | Missing data blocks confidence. |
-| Scorecard | Apply costs, stress checks, and holdout logic. | Positive does not mean approved. |
-| Promotion packet | Package evidence for human review. | Claims must point back to artifacts. |
-| Approval gate | Separate recommendation from authorization. | Live-capable state requires human approval. |
-| Audit trail | Preserve what changed, when, and why. | Decisions stay inspectable after the fact. |
-
-## Why It Matters
-
-The interesting part is not that an AI system can generate ideas. Ideas are cheap.
-
-The interesting part is whether the system can prove which ideas deserve to move forward, show what evidence is missing, and refuse to act when the context is unsafe.
-
-AETHER was built around that line:
-
-- Research outputs are separate from operational actions.
-- Candidate states are explicit, not implied.
-- AI-assisted discovery is bounded by schemas, replay, scoring, and review.
-- A promising candidate can still be blocked.
-- The surface emphasizes state, risk, event context, gates, and auditability instead of a simple performance scoreboard.
+That is the part of AI engineering I care about: turning uncertain model-assisted work into useful, reviewable, operationally safe decisions.
 
 ## Privacy Boundary
 
-This repo intentionally excludes source strategy code, private data files, local paths, repository names, credentials, account details, operational routing details, and proprietary strategy parameters.
+This repo intentionally excludes:
 
-The public artifacts are enough to review the engineering shape without leaking the system.
+- Source strategy code.
+- Private data files.
+- Local paths.
+- Private repository names.
+- Credentials, account details, or operational routing details.
+- Proprietary strategy parameters.
