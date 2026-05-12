@@ -23,8 +23,8 @@ The strongest proof is not that it produced attractive ideas. The strongest proo
 
 Representative artifacts:
 
-- [AETHER control surface](./aether_control_surface_mockup.html)
-- [Sanitized promotion packet sample](./sanitized_promotion_packet_sample.md)
+- [AETHER control surface](./control-surface.html)
+- [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
 
 ## Why It Matters
 
