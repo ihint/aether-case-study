@@ -6,30 +6,31 @@ I am applying because this role matches work I have already been doing: turning 
 
 ## What I Built
 
-AETHER is a private AI-assisted research-to-operations platform for a high-stakes decisioning domain.
+AETHER is a private AI-assisted futures research-to-operations platform.
 
-It takes messy local data and ambiguous hypotheses, then turns them into reproducible workflows, replay artifacts, scorecards, candidate registries, and human-reviewable promotion packets. The system was designed around one principle: generated research should never silently become operational action.
+It takes messy local market data and ambiguous hypotheses, then turns them into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and operator-readable state. The system was designed around one principle: generated research should never silently become operational action.
 
-The origin was financial-market research, but the engineering lesson is broader: high-stakes AI systems need reproducibility, evidence gates, audit trails, and human control. I am not pitching myself as someone who wants to turn your company into a trading desk. I am pitching myself as someone who learned, in a brutally honest domain, that useful AI is measured by decisions improved under uncertainty.
+The strongest proof is not that it produced attractive ideas. The strongest proof is that it killed them. In the latest remote run, plausible post-news MNQ candidates produced thousands of events and were blocked for negative expectancy after costs. That is the discipline I bring: move fast, but make the machine honest.
 
 ## Proof
 
 - Built across two generations: legacy runtime/research system to cleaner AI-first research platform.
-- Built automated coverage around the risky parts: ingestion, replay, persistence, schemas, risk gates, registry behavior, and execution-boundary logic.
-- Designed explicit states: research-only, paper/shadow, recommended, and armed only by human approval.
-- Built local-first workflows for messy data, incomplete coverage, scorecards, runbooks, and audit artifacts.
-- Created review artifacts that can block a promising candidate when the evidence is thin.
+- Built automated coverage around the risky parts: ingestion, replay, persistence, schemas, compiler behavior, risk gates, registry behavior, operator APIs, and execution-boundary logic.
+- Designed explicit states: research-only, review-only, paper-permission, and live approval only by human authority.
+- Built local and cloud workflows for messy data, incomplete coverage, scorecards, runbooks, operator state, and audit artifacts.
+- Created review artifacts that can block or kill a promising candidate when the evidence fails.
+- Deployed an operator surface on a DigitalOcean worker with Postgres-backed state and a profitability endpoint.
 
 Representative artifacts:
 
-- [AETHER control surface](./control-surface.html)
-- [Sanitized promotion packet sample](./sanitized-promotion-packet.md)
+- [AETHER control surface](./aether_control_surface_mockup.html)
+- [Sanitized promotion packet sample](./sanitized_promotion_packet_sample.md)
 
 ## Why It Matters
 
-The hard part was not generating ideas. Ideas are cheap.
+The hard part was not generating ideas. Ideas are cheap, especially with agents.
 
-The hard part was building a system that could answer: what data do we actually have, what is missing, can this be replayed, does it survive costs and holdout checks, is the system allowed to act, and can a human understand why a candidate moved forward or got blocked?
+The hard part was building a system that could answer: what data do we actually have, what is missing, can this be replayed, does it survive costs and holdout checks, is the system allowed to act, what should the next agent do, and can a human understand why a candidate moved forward or got blocked?
 
 That is the part of AI engineering I have been building toward: turning uncertain model-assisted work into useful, reviewable, operationally safe decisions.
 
@@ -41,4 +42,4 @@ I use AI heavily, but I do not treat model output as authority. In AETHER, AI-as
 
 The repositories are private because they contain operational details and domain-specific logic, but I can walk through the architecture, safety model, testing strategy, and sanitized artifacts.
 
-> I built a system for proving which AI-assisted ideas deserve to move forward. That is the intensity I bring to product work.
+> I built a system for proving which AI-assisted trading ideas deserve to move forward, and for killing the ones that do not. That is the intensity I bring.
