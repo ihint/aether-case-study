@@ -8,7 +8,7 @@ I am applying because this role matches work I have already been doing: turning 
 
 AETHER is a private AI-assisted futures research-to-operations platform.
 
-It takes messy local market data and ambiguous hypotheses, then turns them into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and operator-readable state. The system was designed around one principle: generated research should never silently become operational action.
+It takes messy local market data, live futures context, options-regime refreshes, macro/credit/rates context, and ambiguous hypotheses, then turns them into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and operator-readable state. The system was designed around one principle: generated research should never silently become operational action.
 
 The strongest proof is not that it produced attractive ideas. The strongest proof is that it killed them. In the latest remote run, plausible post-news MNQ candidates produced thousands of events and were blocked for negative expectancy after costs. That is the discipline I bring: move fast, but make the machine honest.
 
@@ -17,6 +17,8 @@ The strongest proof is not that it produced attractive ideas. The strongest proo
 - Built across two generations: legacy runtime/research system to cleaner AI-first research platform.
 - Built automated coverage around the risky parts: ingestion, replay, persistence, schemas, compiler behavior, risk gates, registry behavior, operator APIs, and execution-boundary logic.
 - Designed explicit states: research-only, review-only, paper-permission, and live approval only by human authority.
+- Built a live-context layer that refreshes market context, fuses multiple signals, and exposes when data is stale or contradictory.
+- Wrote an aggressive risk-on doctrine with wise drawdown control: more assertive research and paper/shadow testing are allowed only when context and evidence agree, while stale-data, event, execution, drawdown, and human-approval gates remain binding.
 - Built local and cloud workflows for messy data, incomplete coverage, scorecards, runbooks, operator state, and audit artifacts.
 - Created review artifacts that can block or kill a promising candidate when the evidence fails.
 - Deployed an operator surface on a DigitalOcean worker with Postgres-backed state and a profitability endpoint.

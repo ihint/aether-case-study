@@ -287,6 +287,125 @@
       overflow-wrap: normal;
     }
 
+    .thesis-hero {
+      display: grid;
+      gap: 12px;
+    }
+
+    .thesis-aim {
+      border-left: 4px solid var(--green);
+      padding-left: 12px;
+    }
+
+    .thesis-aim h2 {
+      margin-bottom: 8px;
+    }
+
+    .thesis-aim strong {
+      display: block;
+      color: var(--green);
+      font-size: 14px;
+      line-height: 1.35;
+      margin-top: 8px;
+    }
+
+    .thesis-objectives {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .thesis-objective {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--surface-3);
+      min-height: 82px;
+    }
+
+    .thesis-objective b {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .thesis-objective strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .thesis-objective span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .thesis-objective.confirm {
+      border-color: rgba(240, 168, 79, 0.55);
+    }
+
+    .thesis-objective.confirm strong {
+      color: var(--amber);
+    }
+
+    .thesis-objective.target {
+      border-color: rgba(70, 211, 154, 0.46);
+    }
+
+    .thesis-objective.target strong {
+      color: var(--green);
+    }
+
+    .thesis-objective.cleared {
+      border-color: rgba(70, 211, 154, 0.72);
+      background: rgba(70, 211, 154, 0.08);
+    }
+
+    .thesis-next {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid rgba(240, 168, 79, 0.42);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(240, 168, 79, 0.08);
+    }
+
+    .thesis-next b {
+      display: block;
+      color: var(--amber);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .thesis-next span {
+      color: #ead0ad;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .thesis-lock {
+      min-width: 88px;
+      text-align: center;
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--red);
+      border: 1px solid rgba(255, 98, 89, 0.42);
+      background: rgba(255, 98, 89, 0.10);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
     .thesis-ladder {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -620,6 +739,37 @@
       line-height: 1.35;
     }
 
+    .context-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .context-chip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px;
+      background: var(--surface-3);
+      min-height: 72px;
+    }
+
+    .context-chip b {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .context-chip span {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
     .thesis-box {
       border-left: 5px solid var(--coral);
       background: rgba(224, 122, 95, 0.12);
@@ -705,7 +855,10 @@
       .main-grid,
       .metrics,
       .regime-grid,
+      .context-strip,
       .pipeline,
+      .thesis-objectives,
+      .thesis-next,
       .thesis-ladder {
         grid-template-columns: 1fr;
       }
@@ -773,11 +926,11 @@
         <span class="label">ES Thesis</span>
         <table class="terminal-table" aria-label="ES thesis levels">
           <tbody>
-            <tr><th>Bias</th><td>Upside continuation</td></tr>
-            <tr><th>T1</th><td class="mono positive">7451</td></tr>
-            <tr><th>Confirm</th><td>2 daily closes &gt; T1</td></tr>
-            <tr><th>T2</th><td class="mono positive">8000</td></tr>
-            <tr><th>State</th><td>Review active / live gated</td></tr>
+            <tr><th>Bias</th><td data-operator-field="thesis_bias">Upside continuation</td></tr>
+            <tr><th>T1</th><td class="mono positive" data-operator-level="target_1">7451</td></tr>
+            <tr><th>Confirm</th><td data-operator-level="confirmation">2 daily closes &gt; T1</td></tr>
+            <tr><th>T2</th><td class="mono positive" data-operator-level="target_2">8000</td></tr>
+            <tr><th>State</th><td data-operator-field="thesis_state">Review active / live gated</td></tr>
           </tbody>
         </table>
       </article>
@@ -786,28 +939,28 @@
     <section class="status-strip" aria-label="Operating state summary">
       <article class="tile state-ok">
         <span class="label">System State</span>
-        <div class="value positive">Review Active</div>
-        <div class="note">Telemetry, replay, and scorecard are flowing; live action remains gated.</div>
+        <div class="value positive" data-operator-field="allowed_state_label">Review Active</div>
+        <div class="note" data-operator-field="allowed_state_reason">Telemetry, replay, and scorecard are flowing; live action remains gated.</div>
       </article>
       <article class="tile state-ok">
         <span class="label">Active Review</span>
         <div class="value">1 Candidate</div>
         <div class="note">Simulation packet open. Human gate pending.</div>
       </article>
-      <article class="tile state-warn">
+      <article class="tile state-warn" data-state-tile="market_regime">
         <span class="label">Market Regime</span>
-        <div class="value">Mixed</div>
-        <div class="note">Trend signal present, volatility elevated.</div>
+        <div class="value" data-live-context-field="top_market_regime">Loading</div>
+        <div class="note" data-live-context-field="top_market_regime_note">Waiting for fused futures, options, and regime context.</div>
       </article>
       <article class="tile state-ok">
         <span class="label">Risk Progress</span>
         <div class="value positive">+0.53R</div>
         <div class="note">Inside risk envelope.</div>
       </article>
-      <article class="tile state-warn">
-        <span class="label">Next Impact</span>
-        <div class="value">14 min</div>
-        <div class="note">Inflation print. Entries locked.</div>
+      <article class="tile state-warn" data-state-tile="macro_liquidity">
+        <span class="label">Macro Liquidity</span>
+        <div class="value" data-macro-context-field="top_macro_label">Loading</div>
+        <div class="note" data-macro-context-field="top_macro_note">Waiting for rates, TGA, and credit-facility context.</div>
       </article>
     </section>
 
@@ -844,23 +997,35 @@
 
       <article class="panel">
         <span class="label">Current Thesis</span>
-        <h2>ES upside continuation</h2>
-        <p>Primary objective is 7451. Two daily closes above 7451 promote the expansion thesis toward 8000, while live action remains gated by event risk and human approval.</p>
-        <div class="thesis-ladder">
-          <div class="ladder-step">
-            <b>Current</b>
-            <strong>Review</strong>
-            <span>Telemetry and replay active.</span>
+        <div class="thesis-hero">
+          <div class="thesis-aim">
+            <h2 data-operator-field="thesis_title">ES upside continuation</h2>
+            <p data-operator-field="thesis_summary">Primary objective is 7451. Two daily closes above 7451 promote the expansion thesis toward 8000, while live action remains gated by event risk and human approval.</p>
+            <strong>Goal: prove whether this continuation thesis is tradeable in the current risk-on context, not just visually plausible.</strong>
           </div>
-          <div class="ladder-step">
-            <b>T1 / Confirm</b>
-            <strong>7451</strong>
-            <span>Two daily closes above.</span>
+          <div class="thesis-objectives">
+            <div class="thesis-objective confirm">
+              <b>Now</b>
+              <strong data-operator-field="thesis_lifecycle">Review</strong>
+              <span data-operator-field="thesis_checkpoint">Telemetry and replay active.</span>
+            </div>
+            <div class="thesis-objective target">
+              <b>First Objective</b>
+              <strong data-operator-level="target_1">7451</strong>
+              <span data-live-context-field="target_1_status">Price objective to validate continuation pressure.</span>
+            </div>
+            <div class="thesis-objective target">
+              <b>Expansion</b>
+              <strong data-operator-level="target_2">8000</strong>
+              <span>Only relevant after confirmation.</span>
+            </div>
           </div>
-          <div class="ladder-step">
-            <b>Expansion</b>
-            <strong>8000</strong>
-            <span>Unlocked after confirmation.</span>
+          <div class="thesis-next">
+            <div>
+              <b>Confirmation Rule</b>
+              <span><span data-operator-level="confirmation">Two daily closes above.</span> <span data-live-context-field="confirmation_status">Waiting for daily-close evidence.</span></span>
+            </div>
+            <div class="thesis-lock">Live Locked</div>
           </div>
         </div>
         <svg class="sparkline" viewBox="0 0 420 96" role="img" aria-label="Sanitized ES thesis sparkline">
@@ -875,62 +1040,38 @@
       </article>
 
       <article class="panel">
-        <span class="label">Upcoming Impact Events</span>
-        <ul class="event-list">
+        <span class="label">Context Watch</span>
+        <ul class="event-list" id="context-watch-list">
           <li class="event">
-            <span class="time-pill impact-high">14m</span>
+            <span class="time-pill impact-low">Live</span>
             <div>
-              <div class="event-title">Inflation release</div>
-              <div class="event-meta">High impact. Futures-sensitive. Auto-lock active.</div>
-            </div>
-            <span class="status-pill blocked">Block</span>
-          </li>
-          <li class="event">
-            <span class="time-pill impact-med">52m</span>
-            <div>
-              <div class="event-title">Central bank speaker</div>
-              <div class="event-meta">Medium impact. Watch volatility expansion.</div>
+              <div class="event-title">Waiting for live context</div>
+              <div class="event-meta">Fused futures/options/regime artifact has not loaded yet.</div>
             </div>
             <span class="status-pill watch">Watch</span>
-          </li>
-          <li class="event">
-            <span class="time-pill impact-med">2:00</span>
-            <div>
-              <div class="event-title">Treasury auction</div>
-              <div class="event-meta">Rate-sensitive. Liquidity check required.</div>
-            </div>
-            <span class="status-pill watch">Watch</span>
-          </li>
-          <li class="event">
-            <span class="time-pill impact-low">EOD</span>
-            <div>
-              <div class="event-title">Settlement window</div>
-              <div class="event-meta">No new action. Audit closeout only.</div>
-            </div>
-            <span class="status-pill pass">Log</span>
           </li>
         </ul>
       </article>
 
       <article class="panel">
         <span class="label">Regime And Data</span>
-        <h2>Usable context, unstable action window</h2>
+        <h2 data-live-context-field="fused_regime_label">Usable context, unstable action window</h2>
         <div class="regime-grid">
           <div class="regime-item">
-            <b>Volatility</b>
-            <span>Elevated, widening range</span>
+            <b>Futures</b>
+            <span data-live-context-field="futures_label">Waiting for futures context</span>
           </div>
           <div class="regime-item">
-            <b>Structure</b>
-            <span>Trend attempt, unconfirmed</span>
+            <b>Public</b>
+            <span data-live-context-field="public_regime_label">Waiting for Public regime</span>
           </div>
           <div class="regime-item">
-            <b>Liquidity</b>
-            <span>Thin before release</span>
+            <b>Options</b>
+            <span data-live-context-field="public_options_label">Waiting for options regime</span>
           </div>
           <div class="regime-item">
             <b>Data Quality</b>
-            <span>Fresh, partial context gap</span>
+            <span data-live-context-field="data_quality">Waiting for live-context artifact</span>
           </div>
         </div>
         <div class="legend">
@@ -938,6 +1079,78 @@
           <span><i class="dot amber"></i> Watch</span>
           <span><i class="dot green"></i> Pass</span>
           <span><i class="dot blue"></i> Informational</span>
+        </div>
+      </article>
+
+      <article class="panel">
+        <span class="label">Macro Liquidity</span>
+        <h2 data-macro-context-field="fused_macro_label">Macro context loading</h2>
+        <p data-macro-context-field="macro_note">Rates, Treasury cash balance, and credit-facility context have not loaded yet.</p>
+        <div class="regime-grid">
+          <div class="regime-item">
+            <b>Rates</b>
+            <span data-macro-context-field="rates_label">Waiting for rates</span>
+          </div>
+          <div class="regime-item">
+            <b>TGA</b>
+            <span data-macro-context-field="tga_label">Waiting for TGA</span>
+          </div>
+          <div class="regime-item">
+            <b>Credit</b>
+            <span data-macro-context-field="credit_facilities_label">Waiting for facilities</span>
+          </div>
+          <div class="regime-item">
+            <b>Quality</b>
+            <span data-macro-context-field="macro_quality">Waiting for artifact</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <span class="label">Live Context Gate</span>
+        <h2 data-live-context-field="trade_gate_decision">Context gate unavailable</h2>
+        <p data-live-context-field="trade_gate_reason">AETHER has not loaded the fused futures/options/regime artifact yet.</p>
+        <div class="context-strip">
+          <div class="context-chip">
+            <b>Confidence</b>
+            <span data-live-context-field="trade_gate_confidence">0%</span>
+          </div>
+          <div class="context-chip">
+            <b>Roots</b>
+            <span data-live-context-field="live_roots">None</span>
+          </div>
+          <div class="context-chip">
+            <b>Spread</b>
+            <span data-live-context-field="average_spread_ticks">n/a</span>
+          </div>
+          <div class="context-chip">
+            <b>Proof</b>
+            <span data-live-context-field="proof_state">Shadow only</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <span class="label">AETHER Now</span>
+        <h2 data-profit-field="engine_state">Loading research engine</h2>
+        <p data-profit-field="engine_note">Waiting for profitability queue and candidate evidence.</p>
+        <div class="context-strip">
+          <div class="context-chip">
+            <b>Queue</b>
+            <span data-profit-field="queue_count">0</span>
+          </div>
+          <div class="context-chip">
+            <b>Testing</b>
+            <span data-profit-field="top_action">None</span>
+          </div>
+          <div class="context-chip">
+            <b>Candidate</b>
+            <span data-profit-field="top_candidate">None</span>
+          </div>
+          <div class="context-chip">
+            <b>Profit Proof</b>
+            <span data-profit-field="profit_state">Not proven</span>
+          </div>
         </div>
       </article>
 
@@ -996,13 +1209,13 @@
           </thead>
           <tbody>
             <tr>
-              <td>ES_UPSIDE_CONTINUATION</td>
-              <td class="positive">Fresh</td>
+              <td data-operator-field="related_candidate">ES_UPSIDE_CONTINUATION</td>
+              <td class="positive" data-live-context-field="scorecard_telemetry">Fresh</td>
               <td class="positive">+0.53R</td>
               <td class="positive">Pass</td>
-              <td class="watch-text">Watch</td>
+              <td class="watch-text" data-live-context-field="scorecard_context_gate">Watch</td>
               <td>Open</td>
-              <td class="negative">Locked</td>
+              <td class="negative" data-live-context-field="scorecard_live_gate">Locked</td>
             </tr>
           </tbody>
         </table>
@@ -1042,6 +1255,357 @@
     <p class="footer-note">Sanitized operating-surface sample for application discussion. It demonstrates how AETHER presents state, risk, evidence gates, and human-control boundaries without exposing private repositories, strategy parameters, data paths, or operational credentials.</p>
   </main>
   <script>
+    const DEFAULT_OPERATOR_SNAPSHOT = {
+      allowed_state: {
+        state: "live_locked",
+        reason: "Thesis is active but confirmation, event risk, and human gate remain binding."
+      },
+      theses: {
+        primary: {
+          title: "ES upside continuation",
+          bias: "bullish",
+          state: "confirmation_pending",
+          levels: {
+            target_1: "7451",
+            confirmation: "two daily closes above 7451",
+            target_2: "8000"
+          },
+          agent_summary: "Primary objective is 7451. Two daily closes above 7451 promote the expansion thesis toward 8000, while live action remains gated by event risk and human approval.",
+          next_checkpoint: "Review after daily close relative to 7451 and next high-impact event window.",
+          related_candidates: ["ES_UPSIDE_CONTINUATION"]
+        }
+      }
+    };
+
+    function allowedStateLabel(state) {
+      const labels = {
+        fail_closed: "Fail Closed",
+        blocked: "Blocked",
+        review_only: "Review Only",
+        paper_allowed: "Paper Allowed",
+        live_locked: "Live Locked",
+        live_allowed: "Live Allowed"
+      };
+      return labels[state] || "Review Active";
+    }
+
+    function thesisStateLabel(state) {
+      const labels = {
+        forming: "Forming",
+        active: "Active",
+        confirmation_pending: "Confirmation Pending",
+        confirmed: "Confirmed",
+        invalidated: "Invalidated",
+        retired: "Retired"
+      };
+      return labels[state] || "Review";
+    }
+
+    function setText(selector, value) {
+      document.querySelectorAll(selector).forEach((element) => {
+        if (value !== undefined && value !== null && value !== "") {
+          element.textContent = value;
+        }
+      });
+    }
+
+    function formatLabel(value) {
+      if (!value) {
+        return "Unavailable";
+      }
+      return String(value).replaceAll("_", " ");
+    }
+
+    function setLiveContextField(name, value) {
+      setText(`[data-live-context-field="${name}"]`, value);
+    }
+
+    function setMacroContextField(name, value) {
+      setText(`[data-macro-context-field="${name}"]`, value);
+    }
+
+    function setTileState(name, state) {
+      document.querySelectorAll(`[data-state-tile="${name}"]`).forEach((element) => {
+        element.classList.remove("state-ok", "state-warn", "state-fail");
+        element.classList.add(state);
+      });
+    }
+
+    function numberFromText(selector) {
+      const value = document.querySelector(selector)?.textContent || "";
+      const parsed = Number(value.replace(/[^0-9.-]/g, ""));
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    function renderThesisPriceStatus(payload) {
+      const target = numberFromText('[data-operator-level="target_1"]');
+      const esMid = Number(payload?.features?.futures?.mids?.ES || 0);
+      const targetCard = document.querySelector(".thesis-objective.target");
+      if (!target || !esMid || !targetCard) {
+        return;
+      }
+      if (esMid >= target) {
+        targetCard.classList.add("cleared");
+        setLiveContextField("target_1_status", `Cleared intraday: ES mid ${esMid.toFixed(2)} is ${(esMid - target).toFixed(2)} above T1.`);
+        setLiveContextField("confirmation_status", "T1 cleared intraday; waiting for two daily closes.");
+        return;
+      }
+      targetCard.classList.remove("cleared");
+      setLiveContextField("target_1_status", `ES mid ${esMid.toFixed(2)} is ${(target - esMid).toFixed(2)} below T1.`);
+      setLiveContextField("confirmation_status", "Waiting for price to clear T1 and then confirm on daily closes.");
+    }
+
+    function setProfitField(name, value) {
+      setText(`[data-profit-field="${name}"]`, value);
+    }
+
+    function addContextWatchItem(list, { tone, title, meta, status }) {
+      const item = document.createElement("li");
+      item.className = "event";
+
+      const pill = document.createElement("span");
+      pill.className = `time-pill ${tone === "block" ? "impact-high" : tone === "watch" ? "impact-med" : "impact-low"}`;
+      pill.textContent = "Live";
+
+      const copy = document.createElement("div");
+      const heading = document.createElement("div");
+      heading.className = "event-title";
+      heading.textContent = title;
+      const detail = document.createElement("div");
+      detail.className = "event-meta";
+      detail.textContent = meta;
+      copy.append(heading, detail);
+
+      const statusPill = document.createElement("span");
+      statusPill.className = `status-pill ${tone === "block" ? "blocked" : tone === "watch" ? "watch" : "pass"}`;
+      statusPill.textContent = status;
+
+      item.append(pill, copy, statusPill);
+      list.append(item);
+    }
+
+    function renderOperatorSnapshot(snapshot) {
+      const primary = snapshot?.theses?.primary || DEFAULT_OPERATOR_SNAPSHOT.theses.primary;
+      const allowed = snapshot?.allowed_state || DEFAULT_OPERATOR_SNAPSHOT.allowed_state;
+      const levels = primary.levels || {};
+      setText('[data-operator-field="allowed_state_label"]', allowedStateLabel(allowed.state));
+      setText('[data-operator-field="allowed_state_reason"]', allowed.reason);
+      setText('[data-operator-field="thesis_title"]', primary.title);
+      setText('[data-operator-field="thesis_summary"]', primary.agent_summary);
+      setText('[data-operator-field="thesis_bias"]', primary.bias);
+      setText('[data-operator-field="thesis_state"]', `${thesisStateLabel(primary.state)} / ${allowedStateLabel(allowed.state)}`);
+      setText('[data-operator-field="thesis_lifecycle"]', thesisStateLabel(primary.state));
+      setText('[data-operator-field="thesis_checkpoint"]', primary.next_checkpoint);
+      setText('[data-operator-field="related_candidate"]', (primary.related_candidates || [])[0]);
+      Object.entries(levels).forEach(([key, value]) => {
+        setText(`[data-operator-level="${key}"]`, value);
+      });
+    }
+
+    async function loadOperatorSnapshot() {
+      const params = new URLSearchParams(window.location.search);
+      const snapshotUrl = params.get("snapshot");
+      if (!snapshotUrl) {
+        renderOperatorSnapshot(DEFAULT_OPERATOR_SNAPSHOT);
+        return;
+      }
+      try {
+        const response = await fetch(snapshotUrl, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`snapshot fetch failed: ${response.status}`);
+        }
+        renderOperatorSnapshot(await response.json());
+      } catch {
+        renderOperatorSnapshot(DEFAULT_OPERATOR_SNAPSHOT);
+      }
+    }
+
+    loadOperatorSnapshot();
+
+    async function loadLiveContext() {
+      try {
+        const response = await fetch("/api/operator/live-context", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`live context fetch failed: ${response.status}`);
+        }
+        renderLiveContext(await response.json());
+      } catch {
+        renderLiveContext(null);
+      }
+    }
+
+    function renderLiveContext(payload) {
+      const labels = payload?.labels || {};
+      const futures = payload?.features?.futures || {};
+      const gate = payload?.trade_gate || {};
+      const futuresStatus = payload?.futures_status || {};
+      const staleRoots = futures.stale_roots || [];
+      const liveRoots = futures.live_roots || [];
+      const blockers = payload?.blockers || [];
+      const decision = gate.decision || "block";
+      const confidence = Number(gate.confidence || 0);
+      const reasons = gate.reasons || blockers || [];
+      const ok = payload?.ok === true;
+
+      setLiveContextField("fused_regime_label", formatLabel(payload?.fused_regime_label));
+      setLiveContextField("top_market_regime", formatLabel(payload?.fused_regime_label));
+      setLiveContextField("futures_label", formatLabel(labels.futures));
+      setLiveContextField("public_regime_label", formatLabel(labels.public_regime));
+      setLiveContextField("public_options_label", formatLabel(labels.public_options));
+      setLiveContextField(
+        "top_market_regime_note",
+        `Futures ${formatLabel(labels.futures)}; Public ${formatLabel(labels.public_regime)}; Options ${formatLabel(labels.public_options)}.`
+      );
+      setLiveContextField("data_quality", ok ? `Fresh roots: ${liveRoots.length || futuresStatus.root_count || 0}` : "Blocked or unavailable");
+      setLiveContextField("trade_gate_decision", formatLabel(decision));
+      setLiveContextField("trade_gate_reason", reasons.length ? reasons.join(", ") : "No context blockers");
+      setLiveContextField("trade_gate_confidence", `${Math.round(confidence * 100)}%`);
+      setLiveContextField("live_roots", liveRoots.length ? liveRoots.join(", ") : "None");
+      setLiveContextField("average_spread_ticks", futures.average_spread_ticks ? `${Number(futures.average_spread_ticks).toFixed(2)} ticks` : "n/a");
+      setLiveContextField("proof_state", decision === "high_conviction" ? "Shadow prove" : "Shadow only");
+      setLiveContextField("scorecard_telemetry", staleRoots.length ? `Stale: ${staleRoots.join(",")}` : "Fresh");
+      setLiveContextField("scorecard_context_gate", formatLabel(decision));
+      setLiveContextField("scorecard_live_gate", "Locked");
+      setTileState(
+        "market_regime",
+        decision === "high_conviction" || payload?.fused_regime_label === "risk_on_confirmed" ? "state-ok" : decision === "block" ? "state-fail" : "state-warn"
+      );
+      renderThesisPriceStatus(payload);
+      renderContextWatch(payload, { decision, reasons, blockers, staleRoots, liveRoots });
+    }
+
+    function renderContextWatch(payload, context) {
+      const list = document.getElementById("context-watch-list");
+      if (!list) {
+        return;
+      }
+      list.replaceChildren();
+
+      if (!payload) {
+        addContextWatchItem(list, {
+          tone: "block",
+          title: "Live context unavailable",
+          meta: "Operator surface could not fetch the fused context endpoint.",
+          status: "Block"
+        });
+        return;
+      }
+
+      const tone = context.decision === "block" ? "block" : context.decision === "high_conviction" ? "pass" : "watch";
+      addContextWatchItem(list, {
+        tone,
+        title: `Context gate: ${formatLabel(context.decision)}`,
+        meta: context.reasons.length ? context.reasons.join(", ") : "No fused-context blockers.",
+        status: tone === "pass" ? "Pass" : tone === "block" ? "Block" : "Watch"
+      });
+
+      addContextWatchItem(list, {
+        tone: context.liveRoots.length ? "pass" : "block",
+        title: `Futures roots: ${context.liveRoots.length ? context.liveRoots.join(", ") : "none"}`,
+        meta: context.staleRoots.length ? `Stale roots: ${context.staleRoots.join(", ")}` : "All reported futures roots are fresh.",
+        status: context.liveRoots.length ? "Fresh" : "Block"
+      });
+
+      const labels = payload.labels || {};
+      addContextWatchItem(list, {
+        tone: "watch",
+        title: `Options: ${formatLabel(labels.public_options)}`,
+        meta: `Public regime: ${formatLabel(labels.public_regime)}; futures: ${formatLabel(labels.futures)}.`,
+        status: "Watch"
+      });
+    }
+
+    loadLiveContext();
+    window.setInterval(loadLiveContext, 30000);
+
+    async function loadMacroContext() {
+      try {
+        const response = await fetch("/api/operator/macro-context", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`macro context fetch failed: ${response.status}`);
+        }
+        renderMacroContext(await response.json());
+      } catch {
+        renderMacroContext(null);
+      }
+    }
+
+    function renderMacroContext(payload) {
+      if (!payload) {
+        setMacroContextField("top_macro_label", "Unavailable");
+        setMacroContextField("top_macro_note", "Operator surface could not fetch macro context.");
+        setMacroContextField("fused_macro_label", "Macro unavailable");
+        setMacroContextField("macro_note", "Operator surface could not fetch macro context.");
+        setMacroContextField("macro_quality", "Unavailable");
+        return;
+      }
+
+      const labels = payload.labels || {};
+      const warnings = payload.warnings || [];
+      const blockers = payload.blockers || [];
+      const quality = payload.ok ? (warnings.length ? `Loaded with ${warnings.length} warning` : "Fresh") : "Blocked";
+      setMacroContextField("top_macro_label", formatLabel(payload.fused_macro_label));
+      setMacroContextField("top_macro_note", payload.note || "Macro context loaded.");
+      setMacroContextField("fused_macro_label", formatLabel(payload.fused_macro_label));
+      setMacroContextField("macro_note", payload.note || "Macro context loaded.");
+      setMacroContextField("rates_label", formatLabel(labels.rates));
+      setMacroContextField("tga_label", formatLabel(labels.tga));
+      setMacroContextField("credit_facilities_label", formatLabel(labels.credit_facilities));
+      setMacroContextField("macro_quality", blockers.length ? blockers.join(", ") : quality);
+      setTileState(
+        "macro_liquidity",
+        blockers.length ? "state-fail" : payload.fused_macro_label === "macro_liquidity_watch" ? "state-warn" : "state-ok"
+      );
+    }
+
+    loadMacroContext();
+    window.setInterval(loadMacroContext, 300000);
+
+    async function loadProfitability() {
+      try {
+        const response = await fetch("/api/operator/profitability?limit=10", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`profitability fetch failed: ${response.status}`);
+        }
+        renderProfitability(await response.json());
+      } catch {
+        renderProfitability(null);
+      }
+    }
+
+    function renderProfitability(payload) {
+      if (!payload) {
+        setProfitField("engine_state", "Research engine unavailable");
+        setProfitField("engine_note", "The operator surface could not fetch profitability state.");
+        setProfitField("queue_count", "0");
+        setProfitField("top_action", "Unavailable");
+        setProfitField("top_candidate", "Unavailable");
+        setProfitField("profit_state", "Unknown");
+        return;
+      }
+
+      const queue = payload.queue || {};
+      const nextActions = payload.next_actions || [];
+      const reports = payload.reports || [];
+      const topAction = nextActions[0] || {};
+      const topReport = reports[0] || {};
+      const engineState = formatLabel(payload.engine_state || "unknown");
+      const candidateCount = Number(payload.candidate_count || 0);
+      const notes = payload.notes || [];
+      const proofState = candidateCount > 0 ? "Candidate under proof" : "No profitable candidate";
+
+      setProfitField("engine_state", engineState);
+      setProfitField("engine_note", notes[notes.length - 1] || "AETHER is scanning the registry for testable or repairable strategy candidates.");
+      setProfitField("queue_count", String(queue.queue_count || nextActions.length || 0));
+      setProfitField("top_action", formatLabel(topAction.next_action || topReport.health_status || "none"));
+      setProfitField("top_candidate", topAction.edge_name || topReport.edge_name || "None");
+      setProfitField("profit_state", proofState);
+      setLiveContextField("scorecard_context_gate", candidateCount > 0 ? "Under proof" : "No proof yet");
+    }
+
+    loadProfitability();
+    window.setInterval(loadProfitability, 60000);
+
     (() => {
       const zone = "America/New_York";
       const timeFormat = new Intl.DateTimeFormat("en-US", {

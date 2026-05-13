@@ -6,7 +6,7 @@ The private repositories are not public because they contain operational details
 
 ## The Short Version
 
-AETHER turns ambiguous hypotheses and noisy local market data into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and human-reviewable operator state.
+AETHER turns ambiguous hypotheses, noisy local market data, and live market context into reproducible workflows, compiler blueprints, replay/event artifacts, scorecards, candidate registries, promotion gates, and human-reviewable operator state.
 
 The origin was financial-market research, but the engineering lesson is broader:
 
@@ -17,6 +17,8 @@ The origin was financial-market research, but the engineering lesson is broader:
 - Research outputs are separated from operational actions.
 - Candidate states are explicit: research-only, review-only, paper-permission, and live approval only by human authority.
 - AI-assisted discovery is bounded by schemas, replay, scorecards, promotion packets, and human review.
+- Live context is fused from multiple sources so research suggestions can be compared against current futures, options-regime, macro/credit/rates, event-risk, and operator-state conditions.
+- Aggressive risk-on is treated as a stricter evidence state, not permission to bypass risk controls.
 - The system can kill a promising-sounding candidate when cost-adjusted evidence fails.
 - The control surface emphasizes state, risk, market context, gates, next actions, and audit trail instead of a simple performance scoreboard.
 
@@ -40,6 +42,8 @@ The hard part was building a system that could answer:
 - What is missing?
 - Can this be replayed from artifacts?
 - Does it survive costs, stress checks, and holdout rules?
+- Does the current market context confirm, contradict, or stale out the thesis?
+- Are drawdown controls still permitting new risk?
 - Is the system allowed to act, or only allowed to recommend?
 - Can a human understand why a candidate moved forward or got blocked?
 - What should the next research agent do when no candidate is promotable?
